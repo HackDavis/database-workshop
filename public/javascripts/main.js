@@ -23,11 +23,32 @@ $(document).ready(() => {
       })
       // Response came back
       .done((data, status) => {
-        $success.text(data.message)
+        $error.text("");
+        var table = JSON.parse(data.message);
+        var columns = Object.keys(table[0]).length;
+        var tableElement = document.createElement("table");
+        var header = document.createElement("tr");
+        for(let key in table[0]){
+          let column = document.createElement("td");
+          column.innerHTML = key;
+          $(header).append(column);
+        }
+        $(tableElement).append(header);
+        for(let row of table){
+          let rowElement = document.createElement("tr");          
+          for(let key in row){
+            let column = document.createElement("td");
+            column.innerHTML = row[key];
+            $(rowElement).append(column);
+          }
+          $(tableElement).append(rowElement);
+        }
+        $success.append(tableElement);
       })
       .fail((res, status) => {
-        console.log(res)
-        $error.text(status)
+        console.log(res);
+        $error.text(res.responseJSON.error)
+        $success.html("");
       })
     })
   }

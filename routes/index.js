@@ -15,9 +15,8 @@ const routerFn = (pg) => {
     console.log('BODY', body)
 
     // No query
-    if (!body.query) {
-      res.status(403).json({ status: 'error', message: 'Missing Query' });
-    }
+    if(!body)
+      next('missing query');
 
 
     // Get the query
@@ -26,14 +25,12 @@ const routerFn = (pg) => {
     // Pass query into pg
     pg.query(`${query} LIMIT 1000`, (err, result) => {
       if (err) {
-        console.log("ERROR IN QUERY ---", JSON.stringify(err.stack))
-        res.status(403).json({ status: 'error', message: err.stack })
-        return next()
+        return res.status(500).json({error: err.message});
       }
 
       // We got some results, return it
       console.log('RESULT', result)
-      res.status(200).json({ status: 'success', message: JSON.stringify(result.rows) })
+      res.json({ status: 'success', message: JSON.stringify(result.rows) })
     })
   })
 
