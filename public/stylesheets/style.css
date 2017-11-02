@@ -1,0 +1,10 @@
+body {
+  padding: 10rem;
+}
+a {
+  color: #00B7FF;
+}
+
+#query-input {
+  width: 100%
+}

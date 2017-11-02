@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= 'U.S. Baby Names '
+  h2= '1910 - 2014'
+  hr
+  p Table Name: baby_names
+  p Columns
+  ul
+    li name (string)
+    li year (integer)
+    li gender (string)
+    li state (string)
+    li count (integer)
+  hr
+  h3= 'SQL Query'
+  form#query-form(action='/query', method='POST')
+    input#query-input(type='text')
+    input#query-submit(type='submit')
+  div#query-response
+    div#query-error
+    div#query-success
