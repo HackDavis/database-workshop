@@ -24,14 +24,16 @@ const routerFn = (pg) => {
     const { query } = body;
 
     // Pass query into pg
-    pg.query(`${query} LIMIT 100000`, (err, result) => {
+    pg.query(`${query} LIMIT 1000`, (err, result) => {
       if (err) {
-        console.log("ERROR IN QUERY ---", JSON.stringify(err.stack()))
-        res.status(403).json({ status: 'error', message: err.stack() })
+        console.log("ERROR IN QUERY ---", JSON.stringify(err.stack))
+        res.status(403).json({ status: 'error', message: err.stack })
+        return next()
       }
 
       // We got some results, return it
-      res.json({ status: 'success', message: JSON.stringify(result.rows) })
+      console.log('RESULT', result)
+      res.status(200).json({ status: 'success', message: JSON.stringify(result.rows) })
     })
   })
 

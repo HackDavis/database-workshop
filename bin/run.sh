@@ -4,7 +4,7 @@
 # POSTGRES CONNECTION INFORMATION
 
 PGUSER='hacker' \
-# PGHOST='ec2-52-53-164-247.us-west-1.compute.amazonaws.com ' \
+PGHOST='52.53.164.247' \
 PGPASSWORD='hackthecow' \
 PGDATABASE='names' \
 PGPORT=5432
